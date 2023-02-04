@@ -121,6 +121,20 @@
     "ora" "5.4.1"
     "rxjs" "6.6.7"
 
+"@angular-material-components/datetime-picker@^7.0.1":
+  "integrity" "sha512-ukNFdmab++bPF35+56SXFkzWz7F2If3s/rRae37Yq3g7QWWh3kmS7KEbvtSIz000yj3/wGHDV1v9ChGiqsNsgA=="
+  "resolved" "https://registry.npmjs.org/@angular-material-components/datetime-picker/-/datetime-picker-7.0.1.tgz"
+  "version" "7.0.1"
+  dependencies:
+    "tslib" "^2.3.0"
+
+"@angular-material-components/moment-adapter@^9.0.0":
+  "integrity" "sha512-zP3URMc4FUrH/bBJGUdOn4Y3A/WZq3LHtR/1hEF87iO6pxc3BaRG+OnQviL6aga8huwAQAGZxNOTdfg//TQ1dQ=="
+  "resolved" "https://registry.npmjs.org/@angular-material-components/moment-adapter/-/moment-adapter-9.0.0.tgz"
+  "version" "9.0.0"
+  dependencies:
+    "tslib" "^2.3.0"
+
 "@angular/animations@^13.0.0 || ^14.0.0-0", "@angular/animations@~13.0.0", "@angular/animations@13.0.3":
   "integrity" "sha512-wGhUzbf8tOHwNx/8JK3RIUisunayENj1j7aSlm8yrBoawvNdgCQVESyZdtfHxHuScRSpzxSIWdMggZ4G4+DuFg=="
   "resolved" "https://registry.npmjs.org/@angular/animations/-/animations-13.0.3.tgz"
@@ -128,7 +142,7 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/cdk@^13.3.9", "@angular/cdk@13.3.9":
+"@angular/cdk@^13.0.1", "@angular/cdk@^13.3.9", "@angular/cdk@13.3.9":
   "integrity" "sha512-XCuCbeuxWFyo3EYrgEYx7eHzwl76vaWcxtWXl00ka8d+WAOtMQ6Tf1D98ybYT5uwF9889fFpXAPw98mVnlo3MA=="
   "resolved" "https://registry.npmjs.org/@angular/cdk/-/cdk-13.3.9.tgz"
   "version" "13.3.9"
@@ -162,7 +176,7 @@
     "symbol-observable" "4.0.0"
     "uuid" "8.3.2"
 
-"@angular/common@^13.0.0 || ^14.0.0-0", "@angular/common@^15.0.0", "@angular/common@>=12.0.0", "@angular/common@~13.0.0", "@angular/common@12 - 15", "@angular/common@13.0.3":
+"@angular/common@^13.0.0 || ^14.0.0-0", "@angular/common@^13.0.1", "@angular/common@^15.0.0", "@angular/common@^15.0.1", "@angular/common@>=12.0.0", "@angular/common@~13.0.0", "@angular/common@12 - 15", "@angular/common@13.0.3":
   "integrity" "sha512-xxQIQD5rWWHafKRPCgvkWvy53b+QkbJ9yAf3qYTp0gXZJMg/Cx3Ylc8LA2o1kyVJxCI/amXf5k4rr1S9yU7zxw=="
   "resolved" "https://registry.npmjs.org/@angular/common/-/common-13.0.3.tgz"
   "version" "13.0.3"
@@ -193,21 +207,21 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/core@^13.0.0 || ^14.0.0-0", "@angular/core@^15.0.0", "@angular/core@~13.0.0", "@angular/core@12 - 15", "@angular/core@13.0.3":
+"@angular/core@^13.0.0 || ^14.0.0-0", "@angular/core@^13.0.1", "@angular/core@^15.0.0", "@angular/core@^15.0.1", "@angular/core@~13.0.0", "@angular/core@12 - 15", "@angular/core@13.0.3":
   "integrity" "sha512-w8FngZBPrLw9kHftYy824C/wSBtLKCWvGU04qI6V9BCpxedf7cyOIhOzaL+4Pz/rwgvo+0Qn2uM1ssZ2+JUdvQ=="
   "resolved" "https://registry.npmjs.org/@angular/core/-/core-13.0.3.tgz"
   "version" "13.0.3"
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/forms@^13.0.0 || ^14.0.0-0", "@angular/forms@~13.0.0":
+"@angular/forms@^13.0.0 || ^14.0.0-0", "@angular/forms@^13.0.1", "@angular/forms@~13.0.0":
   "integrity" "sha512-Sxpc9kiCYi59GzKkpvpqgUejXq7P1dt3l1C5mnV3WBdNEpVBDRD63YLlNTya+w4uSMr+WEbtCys41QO8MXNIHQ=="
   "resolved" "https://registry.npmjs.org/@angular/forms/-/forms-13.0.3.tgz"
   "version" "13.0.3"
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/material@^13.3.9":
+"@angular/material@^13.0.1", "@angular/material@^13.3.9":
   "integrity" "sha512-FU8lcMgo+AL8ckd27B4V097ZPoIZNRHiCe3wpgkImT1qC0YwcyXZVn0MqQTTFSdC9a/aI8wPm3AbTClJEVw5Vw=="
   "resolved" "https://registry.npmjs.org/@angular/material/-/material-13.3.9.tgz"
   "version" "13.3.9"
@@ -221,7 +235,7 @@
   dependencies:
     "tslib" "^2.3.0"
 
-"@angular/platform-browser@^13.0.0 || ^14.0.0-0", "@angular/platform-browser@~13.0.0", "@angular/platform-browser@13.0.3":
+"@angular/platform-browser@^13.0.0 || ^14.0.0-0", "@angular/platform-browser@^13.0.1", "@angular/platform-browser@~13.0.0", "@angular/platform-browser@13.0.3":
   "integrity" "sha512-XCeCnsD997Erl4XGNFHIqC9cTkO9uSHdaoDvLuNMsF2kr5V1GOeFkh71CYNmCsWrTj4PFqx9q+ziGgvxM4eeOQ=="
   "resolved" "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-13.0.3.tgz"
   "version" "13.0.3"
@@ -4186,6 +4200,11 @@
   "integrity" "sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw=="
   "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz"
   "version" "1.0.4"
+
+"moment@^2.18.1":
+  "integrity" "sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w=="
+  "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
+  "version" "2.29.4"
 
 "ms@^2.0.0", "ms@^2.1.1", "ms@2.1.2":
   "integrity" "sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w=="

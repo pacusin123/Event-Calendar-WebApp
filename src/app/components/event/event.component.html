@@ -3,22 +3,32 @@
   <form [formGroup]="eventForm">
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
-      <input formControlName="productName" matInput placeholder="Name">
+      <input formControlName="name" matInput placeholder="Name">
     </mat-form-field>
     <mat-form-field appearance="outline">
-      <mat-label>Type Event</mat-label>
-      <mat-select [disabled]="false">
-        <mat-option value="option1">Principal</mat-option>
-        <mat-option value="option2">Shared</mat-option>
-      </mat-select>
+      <mat-label>Description</mat-label>
+      <textarea formControlName="description" matInput></textarea>
     </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>LastName</mat-label>
-      <input matInput placeholder="Name">
-    </mat-form-field>
+    <!-- <mat-form-field>
+      <input matInput [ngxMatDatetimePicker]="picker"
+                      placeholder="Choose a date"
+
+                      [min]="minDate" [max]="maxDate"
+                      [disabled]="disabled">
+      <mat-datepicker-toggle matSuffix [for]="picker">
+      </mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #picker
+        [showSpinners]="showSpinners"
+        [showSeconds]="showSeconds"
+        [stepHour]="stepHour" [stepMinute]="stepMinute"
+        [stepSecond]="stepSecond"
+        [touchUi]="touchUi"
+        [color]="color">
+      </ngx-mat-datetime-picker>
+    </mat-form-field> -->
     <mat-form-field appearance="fill">
       <mat-label>Choose a date</mat-label>
-      <input matInput [matDatepicker]="datepicker">
+      <input formControlName="creationDate" matInput [matDatepicker]="datepicker">
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
       <mat-datepicker #datepicker>
@@ -28,23 +38,19 @@
         </mat-datepicker-actions>
       </mat-datepicker>
     </mat-form-field>
-    <label id="example-radio-group-label">Pick your favorite season</label>
-    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group">
-      <mat-radio-button class="example-radio-button" *ngFor="let eventType of eventTypes" [value]="eventType">
+    <mat-form-field appearance="outline">
+      <mat-label>Place</mat-label>
+      <input formControlName="place" matInput placeholder="place">
+    </mat-form-field>
+    <label id="example-radio-group-label">Select Type Event</label>
+    <mat-radio-group formControlName="typeEvent" aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="eventTypeSelected">
+      <mat-radio-button class="example-radio-button" *ngFor="let eventType of eventTypes" [checked]="eventType === eventTypeSelected" [value]="eventType">
         {{eventType}}
       </mat-radio-button>
     </mat-radio-group>
-    <mat-form-field appearance="outline">
-      <mat-label>Number</mat-label>
-      <input matInput type="number" placeholder="Name">
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Comment</mat-label>
-      <textarea matInput></textarea>
-    </mat-form-field>
   </form>
 </div>
 <div mat-dialog-action [align]="'end'">
   <button mat-raised-button color="warn" mat-dialog-close>Close</button>
-  <button style="margin-left: 8px" mat-raised-button color="primary">Save</button>
+  <button style="margin-left: 8px" mat-raised-button color="primary" (click)="saveEvent()">Save</button>
 </div>

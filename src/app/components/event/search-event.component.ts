@@ -1,76 +1,57 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ScheduleEvent } from 'src/app/models/schedule-event';
+import { ScheduleEventService } from 'src/app/services/schedule-event.service';
+import { ScheduleService } from 'src/app/services/schedule.service';
 import { EventComponent } from './event.component';
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
-}
-
-/** Constants used to fill up our data base. */
-const FRUITS: string[] = [
-  'blueberry',
-  'lychee',
-  'kiwi',
-  'mango',
-  'peach',
-  'lime',
-  'pomegranate',
-  'pineapple',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
 
 @Component({
   selector: 'app-search-event',
   templateUrl: './search-event.component.html',
   styleUrls: ['./event.component.css']
 })
-export class SearchEventComponent implements AfterViewInit {
+export class SearchEventComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit', 'actions'];
-  dataSource: MatTableDataSource<UserData>;
+  displayedColumns: string[] = ['ScheduleEventId', 'Name', 'Description', 'Date', 'Place', 'TypeEvent', 'Actions'];
+  dataSource!: MatTableDataSource<ScheduleEvent>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
+  @Input() scheduleId!: number | null | undefined;
+  @Input() showShared!: boolean;
+  @Output() onAddSharedEvent: EventEmitter<any> = new EventEmitter;
   constructor(
+    private scheduleEventService: ScheduleEventService,
+    private scheduleService: ScheduleService,
     private matDialog: MatDialog
   ) {
-    // Create 100 users
-    const users = Array.from({ length: 100 }, (_, k) => createNewUser(k + 1));
 
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  ngOnInit(): void {
+    if (!this.showShared) {
+      this.scheduleId = this.scheduleService.scheduleId.value;
+      this.getAllScheduleEvents();
+    }
+  }
+
+  getAllScheduleEvents() {
+    this.scheduleEventService.getScheduleEventsByScheduleId(Number(this.scheduleId)).subscribe(p => {
+      this.dataSource = new MatTableDataSource(p);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
+  }
+
+  getScheduleEventShared() {
+    this.scheduleEventService.getScheduleEventShared(Number(this.scheduleId)).subscribe(p => {
+      this.dataSource = new MatTableDataSource(p);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
   }
 
   applyFilter(event: Event) {
@@ -82,40 +63,37 @@ export class SearchEventComponent implements AfterViewInit {
     }
   }
 
-  editEvent(row: any) {
+  createScheduleEvent(): void {
+    this.openModalScheduleEvent();
+  }
+
+  editScheduleEvent(row: ScheduleEvent): void {
+    this.openModalScheduleEvent(row)
+  }
+
+  deleteScheduleEvent(id: number) {
+    this.scheduleEventService.deleteScheduleEvent(id).subscribe(() => this.getAllScheduleEvents())
+  }
+
+  addSharedScheduleEvent(row: ScheduleEvent) {
+    row.ScheduleId = Number(this.scheduleId);
+    row.ParentEventId = row.ScheduleEventId;
+    row.ScheduleEventId = 0;
+    this.scheduleEventService.saveScheduleEvent(row).subscribe(() => {
+      this.onAddSharedEvent.emit();
+    })
+  }
+
+
+  private openModalScheduleEvent(row?: ScheduleEvent) {
     this.matDialog.open(EventComponent, {
       width: '30%',
-      data: row,
+      data: [row, this.scheduleId],
       autoFocus: false
     }).afterClosed().subscribe(val => {
       if (val === 'save') {
-        this.getAllEvents();
+        this.getAllScheduleEvents();
       }
     });
   }
-
-  deleteEvent(id: number) {
-
-  }
-
-  getAllEvents() {
-    throw new Error('Method not implemented.');
-  }
-}
-
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name =
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-    ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-    '.';
-
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
-  };
-
 }
