@@ -34,6 +34,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { JwtInterceptorInterceptor } from './jwt-interceptor.interceptor';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { SearchScheduleComponent } from './components/schedule/search-schedule.component';
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,7 +81,10 @@ import { SearchScheduleComponent } from './components/schedule/search-schedule.c
     MatButtonModule,
     MatIconModule,
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
 
   ],
   providers: [

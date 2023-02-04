@@ -18,9 +18,9 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.login();
-    this.userService.currentUser.subscribe(p=> {
-      if(!p) {
+    this.login(true);
+    this.userService.currentUser.subscribe(p => {
+      if (!p) {
         this.labelLogin = 'Login'
       } else {
         this.labelLogin = 'LogOut';
@@ -28,11 +28,11 @@ export class NavbarComponent implements OnInit {
     })
   }
 
-  login() {
+  login(isLogin: boolean) {
     const token = this.cookieService.get('token');
-    this.cookieService.delete('token');    
-    this.router.navigate(['user-login']);
-    this.labelLogin = 'LogIn';   
+    this.cookieService.delete('token');
+    this.router.navigate(['user-login'], { queryParams: { isLogin: isLogin } });
+    this.labelLogin = 'LogIn';
   }
 
 }

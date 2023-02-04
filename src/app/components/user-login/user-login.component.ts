@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ModalMessageComponent } from 'src/app/core/modal-message/modal-message.component';
 import { User } from 'src/app/models/user';
@@ -16,15 +16,23 @@ export class UserLoginComponent implements OnInit {
   userName!: string;
   password!: string;
   user: User;
+  isLogin!: boolean;
   constructor(
     private userService: UserService,
     private router: Router,
     private cookieService: CookieService,
     private dialog: MatDialog,
+    private routerActive: ActivatedRoute,
   ) {
     this.user = new User({});
   }
   ngOnInit(): void {
+    // this.userName = 'test1';
+    // this.password = '12345';
+    // this.userLogin();
+    this.routerActive.queryParams.subscribe(params => {
+      this.isLogin = (params['isLogin'] === "true");
+    });
   }
 
   userLogin() {

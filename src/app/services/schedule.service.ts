@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Schedule } from '../models/schedule';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { ScheduleEvent } from '../models/schedule-event';
 @Injectable({
   providedIn: 'root',
 })
 export class ScheduleService {
-
+  scheduleId: BehaviorSubject<any> = new BehaviorSubject(null);
   constructor(
     private httpService: HttpClient,
   ) { }
@@ -34,6 +35,16 @@ export class ScheduleService {
   }
 
   getScheduleByUserId(id: Number): Observable<Schedule> {
-    return this.httpService.get<Schedule>('https://localhost:7124/api/schedule/getScheduleByUserId/' + id);
+    return this.httpService.get<Schedule>('https://localhost:7124/api/schedule/getScheduleByUserId/' + id).pipe(
+      map(p => {
+        const temp = new Array<ScheduleEvent>();
+        p.ScheduleEvents.forEach(element => {
+          temp.push(new ScheduleEvent(element));
+        });
+        p.ScheduleEvents = temp;
+        this.scheduleId.next(p.ScheduleId);
+        return p
+      })
+    );
   }
 }
