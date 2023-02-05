@@ -1,4 +1,29 @@
+* {
+  box-sizing: border-box;
+}
 
-.example-card {
-  max-width: 40%;
+.column {
+  float: left;
+  width: 50%;
+}
+
+.row {margin: 0 -5px;}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.card {
+  padding: 16px;
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+    display: inline;
+  }
 }

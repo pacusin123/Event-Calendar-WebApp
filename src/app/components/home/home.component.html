@@ -1,29 +1,41 @@
-<mat-card class="example-card">
-  <mat-card-header>
-    <mat-card-title>{{schedule?.Name}}</mat-card-title>
-    <mat-card-subtitle>{{schedule?.User?.FirstName}} {{schedule?.User?.LastName}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content *ngIf="schedule">
-    <full-calendar [options]="calendarOptions">
-      <ng-template #eventContent let-arg>
-        <b>{{ arg.timeText }}</b>
-        <i>{{ arg.event.title }}</i>
-      </ng-template>
-    </full-calendar>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button (click)="editEvent()">Create Event</button>
-    <button mat-button>Remove Calendar</button>
-  </mat-card-actions>
-</mat-card>
-<mat-card class="example-card">
-  <mat-card-header>
-    <mat-card-title>{{schedule?.Name}}</mat-card-title>
-    <mat-card-subtitle>{{schedule?.User?.FirstName}} {{schedule?.User?.LastName}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <app-search-event #searchEventComponent [scheduleId]="schedule?.ScheduleId" [showShared]="true" (onAddSharedEvent)="getScheduleByUserId()"></app-search-event>
-  </mat-card-content>
-</mat-card>
-
-
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <mat-card class="calendar-card">
+        <mat-card-header>
+          <mat-card-title>{{schedule?.Name}}</mat-card-title>
+          <mat-card-subtitle>{{schedule?.User?.FirstName}} {{schedule?.User?.LastName}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content *ngIf="schedule">
+          <full-calendar id="calendarEl" [options]="calendarOptions" [events]="events">
+            <ng-template #eventContent let-arg>
+              <div>
+                <b style="margin-left: 5px;">{{ arg.event.start | date: 'shortTime' }}</b>
+                <br>
+                <i style="margin-left: 15px;">Name: {{ arg.event.title }}</i>
+                <br>
+                <i style="margin-left: 15px; white-space: nowrap;">Description: {{ arg.event.description }}</i>
+              </div>
+            </ng-template>
+          </full-calendar>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="warn">Remove Calendar</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  <div class="column">
+    <div class="card">
+      <mat-card class="events-card">
+        <mat-card-header>
+          <mat-card-title>Events Shared</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <app-search-event #searchEventComponent [scheduleId]="schedule?.ScheduleId" [showShared]="true"
+            (onAddSharedEvent)="getScheduleByUserId()"></app-search-event>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
