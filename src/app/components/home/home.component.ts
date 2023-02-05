@@ -22,6 +22,7 @@ export class HomeComponent {
   events: any = [];
   existSchedule: boolean = false;
   calendarOptions: CalendarOptions = {
+    headerToolbar: { center: 'dayGridMonth,dayGridWeek' },
     initialView: 'dayGridMonth',
     plugins: [
       interactionPlugin,
@@ -37,6 +38,7 @@ export class HomeComponent {
   };
   schedule!: Schedule;
   userId: number;
+
   constructor(
     private matDialog: MatDialog,
     private userService: UserService,
@@ -62,9 +64,8 @@ export class HomeComponent {
     this.scheduleService.getScheduleByUserId(this.userId).subscribe(p => {
       this.schedule = p;
       setTimeout(() => {
-        this.searchEventComponent.getScheduleEventShared();
+        this.searchEventComponent.filterByDateTimeInternal();
       }, 0);
-      const events: any = [];
       p.ScheduleEvents.forEach(element => {
         const eventSchedule = {
           id: element.ScheduleEventId,
@@ -72,12 +73,10 @@ export class HomeComponent {
           description: element.Description,
           start: element.CreationDate,
         };
-        events.push(eventSchedule);
+        this.events.push(eventSchedule);
         this.existSchedule = true;
       });
-
-      this.calendarOptions.events = events;
-      this.calendarOptions.eventBackgroundColor = '#3f51b5';
+      this.changeDetector.detectChanges();
     });
   }
 

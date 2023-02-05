@@ -1,4 +1,4 @@
 export enum TypeEventEnum {
-  Private = 1,
+  Exclusive = 1,
   Shared = 2
 }

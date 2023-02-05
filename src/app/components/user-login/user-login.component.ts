@@ -27,9 +27,9 @@ export class UserLoginComponent implements OnInit {
     this.user = new User({});
   }
   ngOnInit(): void {
-    // this.userName = 'test1';
-    // this.password = '12345';
-    // this.userLogin();
+    this.userName = 'test1';
+    this.password = '123';
+    this.userLogin();
     this.routerActive.queryParams.subscribe(params => {
       this.isLogin = (params['isLogin'] === "true");
     });
@@ -37,9 +37,13 @@ export class UserLoginComponent implements OnInit {
 
   userLogin() {
     this.userService.userLogin(this.userName, this.password).subscribe(p => {
-      this.cookieService.set('token', p.token);
-      this.userService.loadUserCurrent(p.token);
-      this.router.navigate(['home'])
+      if(p.token) {
+        this.cookieService.set('token', p.token);
+        this.userService.loadUserCurrent(p.token);
+        this.router.navigate(['home'])
+      } else {
+        alert("Your credentials are incorrects, please try again")
+      }
     })
   }
 

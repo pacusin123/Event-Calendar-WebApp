@@ -1,13 +1,26 @@
 <div class="container">
   <div style="margin-top: 10px;">
-    <mat-form-field>
-      <div mat-dialog-actions align="end">
-        <button mat-raised-button color="primary" (click)="createScheduleEvent()">Add Event</button>
-      </div>
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    <div mat-dialog-actions align="end">
+      <button mat-raised-button color="primary" (click)="createScheduleEvent()">Add Event</button>
+    </div>
+    <mat-label>Filter By:    </mat-label>
+    <mat-radio-group [(ngModel)]="selectFilter" aria-label="Filter By">
+      <mat-radio-button checked="true" value="filterText">Text</mat-radio-button>
+      <mat-radio-button class="example-radio-button" value="filterDate">Date</mat-radio-button>
+    </mat-radio-group>
+    <mat-form-field *ngIf="selectFilter == 'filterText'">
+      <input matInput (keyup)="applyFilter($event)" placeholder="Add filter" #input>
     </mat-form-field>
-
+    <div *ngIf="selectFilter == 'filterDate'" class="contentTime">
+      <div class="datepicker">
+        <ejs-datepicker (change)="filterByDate($event)" (value)="filterDateValue"
+           placeholder="choose date"
+          format="dd-MM-yyyy"></ejs-datepicker>
+      </div>
+      <div class="dateTime">
+        <ejs-timepicker format="HH:mm" placeholder="choose time" (change)="filterByDateAndTime($event)"></ejs-timepicker>
+      </div>
+    </div>
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>
 
@@ -28,7 +41,7 @@
 
         <ng-container matColumnDef="Date">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-          <td mat-cell *matCellDef="let row"> {{row.CreationDate}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.CreationDate | date: 'dd/MM/yyyy, H:mm' }} </td>
         </ng-container>
 
         <ng-container matColumnDef="Place">
@@ -44,15 +57,16 @@
         <ng-container matColumnDef="Actions">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
           <td mat-cell *matCellDef="let row">
-              <button *ngIf="!showShared  && !row.ParentEventId" mat-icon-button color="primary" (click)="editScheduleEvent(row)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button *ngIf="!showShared" mat-icon-button color="warn" (click)="deleteScheduleEvent(row.ScheduleEventId)">
-                <mat-icon>delete</mat-icon>
-              </button>
-              <button mat-icon-button color="basic" *ngIf="showShared" (click)="addSharedScheduleEvent(row)">
-                <mat-icon>shared</mat-icon>
-              </button>
+            <button *ngIf="!showShared  && !row.ParentEventId" mat-icon-button color="primary"
+              (click)="editScheduleEvent(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button *ngIf="!showShared" mat-icon-button color="warn" (click)="deleteScheduleEvent(row.ScheduleEventId)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button color="basic" *ngIf="showShared" (click)="addSharedScheduleEvent(row)">
+              <mat-icon>shared</mat-icon>
+            </button>
           </td>
         </ng-container>
 
@@ -61,7 +75,7 @@
 
         <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          <td class="mat-cell" colspan="4">No data matching the filter</td>
         </tr>
       </table>
 

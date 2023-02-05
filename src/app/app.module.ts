@@ -34,11 +34,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { JwtInterceptorInterceptor } from './jwt-interceptor.interceptor';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { SearchScheduleComponent } from './components/schedule/search-schedule.component';
-import {
-  NgxMatDatetimePickerModule,
-  NgxMatNativeDateModule,
-  NgxMatTimepickerModule
-} from '@angular-material-components/datetime-picker';
+import { TimePickerModule, DatePickerModule, DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { ErrorException } from './core/error-exception';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,16 +80,22 @@ import {
     MatIconModule,
     FormsModule,
     MatSnackBarModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule,
+    TimePickerModule,
+    DatePickerModule,
+    DateTimePickerModule,
 
   ],
   providers: [
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptorInterceptor,
       multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorException,
+      multi: true,
     }
   ],
   bootstrap: [AppComponent]

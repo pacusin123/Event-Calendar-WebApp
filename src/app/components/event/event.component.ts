@@ -14,8 +14,8 @@ import * as moment from 'moment';
 })
 export class EventComponent implements OnInit {
 
-  eventTypes = Object.keys(TypeEventEnum).filter(k => typeof TypeEventEnum[k as any] === "number");
-  eventTypeSelected = "Private"
+  eventTypes: string[] = Object.keys(TypeEventEnum).filter(k => typeof TypeEventEnum[k as any] === "number");
+  eventTypeSelected: string = TypeEventEnum[TypeEventEnum.Exclusive];
   eventForm !: FormGroup;
 
   @ViewChild('picker') picker: any;
@@ -73,7 +73,7 @@ export class EventComponent implements OnInit {
     if (this.data && this.data[0]) {
       this.eventForm.controls['name'].setValue(this.data[0].Name)
       this.eventForm.controls['description'].setValue(this.data[0].Description)
-      this.eventForm.controls['creationDate'].setValue(this.data[0].CreationDate)
+      this.eventForm.controls['creationDate'].setValue(new Date(this.data[0].CreationDate))
       this.eventForm.controls['place'].setValue(this.data[0].Place)
       this.eventForm.controls['typeEvent'].setValue(this.data[0].TypeEventEnum)
     }
@@ -81,7 +81,14 @@ export class EventComponent implements OnInit {
 
   saveEvent() {
     if (this.eventForm.valid) {
-      const eventSchedule = this.eventForm.value as ScheduleEvent
+      const eventSchedule = this.eventForm.value as any
+      eventSchedule.creationDate = new Date(Date.UTC(
+        eventSchedule.creationDate.getFullYear(),
+        eventSchedule.creationDate.getMonth(),
+        eventSchedule.creationDate.getDate(),
+        eventSchedule.creationDate.getHours(),
+        eventSchedule.creationDate.getMinutes()
+      ));
       eventSchedule.TypeEventEnum = Number(TypeEventEnum[this.eventForm.controls['typeEvent'].value]);
       if (this.data && this.data[1])
         eventSchedule.ScheduleId = this.data[1];

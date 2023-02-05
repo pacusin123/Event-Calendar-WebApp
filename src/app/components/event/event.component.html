@@ -9,35 +9,8 @@
       <mat-label>Description</mat-label>
       <textarea formControlName="description" matInput></textarea>
     </mat-form-field>
-    <!-- <mat-form-field>
-      <input matInput [ngxMatDatetimePicker]="picker"
-                      placeholder="Choose a date"
-
-                      [min]="minDate" [max]="maxDate"
-                      [disabled]="disabled">
-      <mat-datepicker-toggle matSuffix [for]="picker">
-      </mat-datepicker-toggle>
-      <ngx-mat-datetime-picker #picker
-        [showSpinners]="showSpinners"
-        [showSeconds]="showSeconds"
-        [stepHour]="stepHour" [stepMinute]="stepMinute"
-        [stepSecond]="stepSecond"
-        [touchUi]="touchUi"
-        [color]="color">
-      </ngx-mat-datetime-picker>
-    </mat-form-field> -->
-    <mat-form-field appearance="fill">
-      <mat-label>Choose a date</mat-label>
-      <input formControlName="creationDate" matInput [matDatepicker]="datepicker">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
-      <mat-datepicker #datepicker>
-        <mat-datepicker-actions>
-          <button mat-button matDatepickerCancel>Cancel</button>
-          <button mat-raised-button color="primary" matDatepickerApply>Select</button>
-        </mat-datepicker-actions>
-      </mat-datepicker>
-    </mat-form-field>
+    <mat-label>Select Event Date</mat-label>
+    <ejs-datetimepicker formControlName="creationDate" placeholder="choose date and time" format="dd-MMM-yyyy HH:mm"></ejs-datetimepicker>
     <mat-form-field appearance="outline">
       <mat-label>Place</mat-label>
       <input formControlName="place" matInput placeholder="place">
