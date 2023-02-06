@@ -1,10 +1,13 @@
-<mat-toolbar color="primary" class="mat-elevation-z4"
-><mat-icon>person </mat-icon>
-  <span>Welcome {{userService.currentUser?.value?.FirstName}}</span>
+<mat-toolbar color="primary" class="mat-elevation-z4">
+  <mat-icon>person </mat-icon>
+  <h1>{{userLoginService.currentUser?.value?.FirstName}}
+    {{userLoginService.currentUser?.value?.LastName}}</h1>
+  <span class="label-subtitle">{{userLoginService.currentUser?.value?.Role}}</span>
   <div class="spacer"></div>
-  <a mat-button routerLink="home">Home</a>
-  <a mat-button routerLink="event">Events</a>
-  <a mat-button routerLink="user">Users</a>
-  <a mat-button routerLink="user-login" (click)="login(false)">Register</a>
-  <a mat-button (click)="login(true)" color="green">{{labelLogin}}</a>
+  <a mat-button routerLink="home"><mat-icon>home</mat-icon> Home </a>
+  <a mat-button routerLink="event"><mat-icon>event_note</mat-icon> Events </a>
+  <a mat-button routerLink="user"><mat-icon>group</mat-icon> Users</a>
+  <a mat-button routerLink="role"><mat-icon>manage_accounts</mat-icon> Roles</a>
+  <a mat-button routerLink="user-login" (click)="login(false)"><mat-icon>person_add</mat-icon> Register</a>
+  <a mat-button (click)="login(true)" color="green"><mat-icon>login</mat-icon> {{labelLogin}}</a>
 </mat-toolbar>

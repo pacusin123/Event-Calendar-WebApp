@@ -36,7 +36,11 @@ import { ScheduleComponent } from './components/schedule/schedule.component';
 import { SearchScheduleComponent } from './components/schedule/search-schedule.component';
 import { TimePickerModule, DatePickerModule, DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { ErrorException } from './core/error-exception';
-import { DatePipe } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RoleComponent } from './components/role/role.component';
+import { SearchRoleComponent } from './components/role/search-role.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NetworkInterceptor } from './core/network.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +53,9 @@ import { DatePipe } from '@angular/common';
     SearchUserComponent,
     ModalMessageComponent,
     ScheduleComponent,
-    SearchScheduleComponent
+    SearchScheduleComponent,
+    RoleComponent,
+    SearchRoleComponent
   ],
   imports: [
     BrowserModule,
@@ -83,10 +89,11 @@ import { DatePipe } from '@angular/common';
     TimePickerModule,
     DatePickerModule,
     DateTimePickerModule,
+    NgbModule,
+    MatProgressSpinnerModule
 
   ],
   providers: [
-    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptorInterceptor,
@@ -95,6 +102,11 @@ import { DatePipe } from '@angular/common';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorException,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: NetworkInterceptor,
       multi: true,
     }
   ],

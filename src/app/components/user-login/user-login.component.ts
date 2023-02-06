@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ModalMessageComponent } from 'src/app/core/modal-message/modal-message.component';
 import { User } from 'src/app/models/user';
+import { UserLoginService } from 'src/app/services/user-login.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class UserLoginComponent implements OnInit {
   user: User;
   isLogin!: boolean;
   constructor(
+    private userLoginService: UserLoginService,
     private userService: UserService,
     private router: Router,
     private cookieService: CookieService,
@@ -27,19 +29,19 @@ export class UserLoginComponent implements OnInit {
     this.user = new User({});
   }
   ngOnInit(): void {
-    this.userName = 'test1';
-    this.password = '123';
-    this.userLogin();
+    // this.userName = 'test1';
+    // this.password = '123';
+    // this.userLogin();
     this.routerActive.queryParams.subscribe(params => {
       this.isLogin = (params['isLogin'] === "true");
     });
   }
 
   userLogin() {
-    this.userService.userLogin(this.userName, this.password).subscribe(p => {
+    this.userLoginService.userLogin(this.userName, this.password).subscribe(p => {
       if(p.token) {
         this.cookieService.set('token', p.token);
-        this.userService.loadUserCurrent(p.token);
+        this.userLoginService.loadUserCurrent(p.token);
         this.router.navigate(['home'])
       } else {
         alert("Your credentials are incorrects, please try again")

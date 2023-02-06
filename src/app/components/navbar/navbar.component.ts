@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { UserService } from 'src/app/services/user.service';
+import { UserLoginService } from 'src/app/services/user-login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,13 +13,13 @@ export class NavbarComponent implements OnInit {
   labelLogin = 'LogIn'
   constructor(
     private cookieService: CookieService,
-    public userService: UserService,
+    public userLoginService: UserLoginService,
     private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.login(true);
-    this.userService.currentUser.subscribe(p => {
+    this.userLoginService.currentUser.subscribe(p => {
       if (!p) {
         this.labelLogin = 'Login'
       } else {
@@ -29,10 +29,9 @@ export class NavbarComponent implements OnInit {
   }
 
   login(isLogin: boolean) {
-    const token = this.cookieService.get('token');
     this.cookieService.delete('token');
+    this.userLoginService.currentUser.next(null);
     this.router.navigate(['user-login'], { queryParams: { isLogin: isLogin } });
-    this.labelLogin = 'LogIn';
   }
 
 }

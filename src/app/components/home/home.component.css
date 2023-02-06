@@ -27,3 +27,8 @@
     display: inline;
   }
 }
+
+#tipContent {
+  width: 500px !important;
+}
+

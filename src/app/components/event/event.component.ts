@@ -18,40 +18,6 @@ export class EventComponent implements OnInit {
   eventTypeSelected: string = TypeEventEnum[TypeEventEnum.Exclusive];
   eventForm !: FormGroup;
 
-  @ViewChild('picker') picker: any;
-
-  date!: moment.Moment;
-  disabled = false;
-  showSpinners = true;
-  showSeconds = false;
-  touchUi = false;
-  enableMeridian = false;
-  minDate!: moment.Moment;
-  maxDate!: moment.Moment;
-  stepHour = 1;
-  stepMinute = 1;
-  stepSecond = 1;
-  color: ThemePalette = 'primary';
-
-  formGroup = new FormGroup({
-    date: new FormControl(null, [Validators.required]),
-    date2: new FormControl(null, [Validators.required])
-  })
-  dateControl = new FormControl(new Date(2021, 9, 4, 5, 6, 7));
-  dateControlMinMax = new FormControl(new Date());
-
-
-  options = [
-    { value: true, label: 'True' },
-    { value: false, label: 'False' }
-  ];
-
-  listColors = ['primary', 'accent', 'warn'];
-
-  stepHours = [1, 2, 3, 4, 5];
-  stepMinutes = [1, 5, 10, 15, 20, 25];
-  stepSeconds = [1, 5, 10, 15, 20, 25];
-
   constructor(
     private formBuilder: FormBuilder,
     private scheduleEventService: ScheduleEventService,
@@ -79,7 +45,7 @@ export class EventComponent implements OnInit {
     }
   }
 
-  saveEvent() {
+  saveEvent(): void {
     if (this.eventForm.valid) {
       const eventSchedule = this.eventForm.value as any
       eventSchedule.creationDate = new Date(Date.UTC(
