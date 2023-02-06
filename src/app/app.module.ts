@@ -41,6 +41,7 @@ import { RoleComponent } from './components/role/role.component';
 import { SearchRoleComponent } from './components/role/search-role.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NetworkInterceptor } from './core/network.interceptor';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +91,8 @@ import { NetworkInterceptor } from './core/network.interceptor';
     DatePickerModule,
     DateTimePickerModule,
     NgbModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTooltipModule,
 
   ],
   providers: [

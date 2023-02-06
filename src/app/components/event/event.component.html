@@ -15,6 +15,10 @@
       <mat-label>Place</mat-label>
       <input formControlName="place" matInput placeholder="place">
     </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Participants</mat-label>
+      <input formControlName="participants" matInput type="number" placeholder="N° participants">
+    </mat-form-field>
     <label id="example-radio-group-label">Select Type Event</label>
     <mat-radio-group formControlName="typeEvent" aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="eventTypeSelected">
       <mat-radio-button class="example-radio-button" *ngFor="let eventType of eventTypes" [checked]="eventType === eventTypeSelected" [value]="eventType">

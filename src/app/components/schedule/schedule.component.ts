@@ -37,6 +37,8 @@ export class ScheduleComponent implements OnInit {
       this.scheduleService.saveSchedule(schedule).subscribe({});
       this.scheduleForm.reset();
       this.dialogRef.close('save');
+    } else {
+      alert("fill in the required fields *")
     }
   }
 

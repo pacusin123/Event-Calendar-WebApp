@@ -40,7 +40,7 @@ export class ScheduleService {
     return this.httpService.get<Schedule>(this.baseUrl + '/schedule/getScheduleByUserId/' + id).pipe(
       map(p => {
         const temp = new Array<ScheduleEvent>();
-        p.ScheduleEvents.forEach(element => {
+        p.ScheduleEvents?.forEach(element => {
           temp.push(new ScheduleEvent(element));
         });
         p.ScheduleEvents = temp;

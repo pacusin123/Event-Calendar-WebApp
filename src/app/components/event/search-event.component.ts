@@ -15,7 +15,7 @@ import { EventComponent } from './event.component';
 })
 export class SearchEventComponent implements OnInit {
 
-  displayedColumns: string[] = ['ScheduleEventId', 'Name', 'Description', 'Date', 'Place', 'TypeEvent', 'Actions'];
+  displayedColumns: string[] = ['ScheduleEventId', 'Name', 'Description', 'Date', 'Place', 'Participants', 'TypeEvent', 'Actions'];
   dataSource!: MatTableDataSource<ScheduleEvent>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -94,10 +94,13 @@ export class SearchEventComponent implements OnInit {
   }
 
   addSharedScheduleEvent(row: ScheduleEvent): void {
-    row.ScheduleId = Number(this.scheduleId);
-    row.ParentEventId = row.ScheduleEventId;
-    row.ScheduleEventId = 0;
-    this.scheduleEventService.saveScheduleEvent(row).subscribe(() => {
+    const scheduleEvent = Object.assign({}, row);
+    scheduleEvent.ScheduleId = Number(this.scheduleId);
+    scheduleEvent.ParentEventId = row.ScheduleEventId;
+    console.log(row.ParentEventId);
+    scheduleEvent.ScheduleEventId = 0;
+    console.log(row.ParentEventId);
+    this.scheduleEventService.saveScheduleEvent(scheduleEvent).subscribe(() => {
       this.onAddSharedEvent.emit();
     })
   }
