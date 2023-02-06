@@ -40,6 +40,8 @@ export class RoleComponent implements OnInit {
       this.roleService.saveRole(role).subscribe({});
       this.roleForm.reset();
       this.dialogRef.close('save');
+    } else {
+      alert("fill in the required fields *")
     }
   }
 

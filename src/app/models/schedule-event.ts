@@ -7,12 +7,13 @@ export class ScheduleEvent {
   Description!: string;
   CreationDate!: Date;
   Place!: string;
+  Participants!: number;
   TypeEventEnum!: number;
   Schedule!: Schedule;
   ScheduleId!: number;
-  ParentEventId!: number |  null;
+  ParentEventId!: number | null;
 
-  get TypeEventName() : string {
+  get TypeEventName(): string {
     return TypeEventEnum[this.TypeEventEnum];
   }
 

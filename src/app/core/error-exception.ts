@@ -24,6 +24,9 @@ export class ErrorException implements HttpInterceptor {
               break;
             case 200:
               break;
+            case 400:
+              alert(resp.error.title)
+              break;
             case 401:
               this.cookieService.delete('token');
               this.userLoginService.currentUser.next(null);

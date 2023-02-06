@@ -5,7 +5,7 @@
       <mat-card-subtitle>Schedule App</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <mat-tab-group [selectedIndex]="isLogin ? 0 :  1">
+      <mat-tab-group [selectedIndex]="isLogin ? 0 :  1" (selectedIndexChange)="isLogin = $event == 0 ? true : false">
         <mat-tab label="Login">
           <mat-form-field class="example-full-width">
             <mat-label>UserName</mat-label>
@@ -21,33 +21,35 @@
           <button mat-button color="primary" (click)="userLogin()">Login</button>
         </mat-tab>
         <mat-tab label="Register">
-          <mat-form-field class="example-full-width">
-            <mat-label>FirstName</mat-label>
-            <input matInput placeholder="first name" [(ngModel)]="user.FirstName">
-            <mat-icon matSuffix>person</mat-icon>
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <mat-label>Last Name</mat-label>
-            <input matInput placeholder="last name" [(ngModel)]="user.LastName">
-            <mat-icon matSuffix>person</mat-icon>
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <mat-label>Email</mat-label>
-            <input type="email" matInput placeholder="Email" value="" [(ngModel)]="user.Email">
-            <mat-icon matSuffix>email</mat-icon>
-          </mat-form-field>
+          <form [formGroup]="userForm">
+            <mat-form-field class="example-full-width">
+              <mat-label>FirstName</mat-label>
+              <input matInput formControlName="firstName" placeholder="first name" [(ngModel)]="user.FirstName">
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="lastName" placeholder="last name" [(ngModel)]="user.LastName">
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Email</mat-label>
+              <input type="email" formControlName="email" matInput placeholder="Email" value="" [(ngModel)]="user.Email">
+              <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
 
-          <mat-form-field class="example-full-width">
-            <mat-label>User Name</mat-label>
-            <input matInput placeholder="userName" [(ngModel)]="user.UserName">
-            <mat-icon matSuffix>person</mat-icon>
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <mat-label>Password</mat-label>
-            <input type="password" matInput placeholder="Password" [(ngModel)]="user.Password">
-            <mat-icon matSuffix>vpn_key</mat-icon>
-          </mat-form-field>
-          <button mat-button color="primary" (click)="createUser()">Register</button>
+            <mat-form-field class="example-full-width">
+              <mat-label>User Name</mat-label>
+              <input matInput formControlName="userName" placeholder="userName" [(ngModel)]="user.UserName">
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Password</mat-label>
+              <input type="password" formControlName="password" matInput placeholder="Password" [(ngModel)]="user.Password">
+              <mat-icon matSuffix>vpn_key</mat-icon>
+            </mat-form-field>
+            <button mat-button color="primary" (click)="createUser()">Register</button>
+          </form>
         </mat-tab>
       </mat-tab-group>
 

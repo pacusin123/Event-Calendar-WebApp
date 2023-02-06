@@ -1,7 +1,7 @@
 <div class="container">
   <div class="sub-container">
     <div mat-dialog-actions align="end">
-      <button mat-raised-button color="primary" (click)="createScheduleEvent()">Add Event</button>
+      <button mat-raised-button color="primary" [disabled]="!scheduleId" (click)="createScheduleEvent()">Add Event</button>
     </div>
     <mat-label>Filter By:    </mat-label>
     <mat-radio-group [(ngModel)]="selectFilter" aria-label="Filter By">
@@ -47,6 +47,11 @@
         <ng-container matColumnDef="Place">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Place </th>
           <td mat-cell *matCellDef="let row"> {{row.Place}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Participants">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Participants </th>
+          <td mat-cell *matCellDef="let row"> {{row.Participants}} </td>
         </ng-container>
 
         <ng-container matColumnDef="TypeEvent">

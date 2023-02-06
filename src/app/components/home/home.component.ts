@@ -1,4 +1,4 @@
-import { Component, NgZone, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CalendarOptions, DateSelectArg, EventClickArg, EventSourceInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { EventComponent } from '../event/event.component';
@@ -26,7 +26,6 @@ export class HomeComponent {
 
   events: any = [];
   eventSelected: ScheduleEvent = new ScheduleEvent({});
-  existSchedule: boolean = false;
   calendarOptions: CalendarOptions = {
     headerToolbar: { center: 'dayGridMonth,dayGridWeek' },
     initialView: 'dayGridMonth',
@@ -40,7 +39,6 @@ export class HomeComponent {
     selectMirror: true,
     dayMaxEvents: true,
     eventMouseEnter: this.openToolTip.bind(this),
-    eventMouseLeave: this.closeToolTip.bind(this),
     eventClick: this.editEvent.bind(this),
     select: this.handleDateSelect.bind(this),
   };
@@ -50,8 +48,7 @@ export class HomeComponent {
   constructor(
     private matDialog: MatDialog,
     private userLoginService: UserLoginService,
-    private scheduleService: ScheduleService,
-    private _ngZone: NgZone,
+    private scheduleService: ScheduleService
   ) {
     this.userId = this.userLoginService.currentUser.getValue().UserId as number;
     this.verifyScheduleExist();
@@ -60,7 +57,6 @@ export class HomeComponent {
   verifyScheduleExist(): void {
     this.scheduleService.verifyScheduleExist(this.userId).subscribe(p => {
       if (p) {
-        this.existSchedule = true;
         this.getScheduleByUserId();
       } else {
         this.createSchedule();
@@ -84,23 +80,19 @@ export class HomeComponent {
             place: element.Place,
             typeEvent: element.TypeEventEnum,
             parentEventId: element.ParentEventId,
-            colorEvent: element.TypeEventEnum == TypeEventEnum.Exclusive ? 'red' : element.ParentEventId ? 'green' : 'blue'
+            colorEvent: element.TypeEventEnum == TypeEventEnum.Exclusive ? '#ff9900' : element.ParentEventId ? 'green' : 'blue',
+            iconEvent: element.TypeEventEnum == TypeEventEnum.Exclusive ? 'star' : element.ParentEventId ? 'co_present' : 'share'
           },
           start: element.CreationDate,
           end: element.CreationDate
         };
         events.push(eventSchedule);
-        this.existSchedule = true;
       });
 
       setTimeout(() => {
         this.calendarComponent.getApi().setOption("events", events);
       }, 0);
     });
-  }
-
-  closeToolTip(): void {
-    this.mytooltip.ngOnDestroy();
   }
 
   openToolTip(info: any): void {
@@ -111,8 +103,6 @@ export class HomeComponent {
     this.eventSelected.TypeEventEnum = info.event.extendedProps.typeEvent;
     this.eventSelected.Place = info.event.extendedProps.place;
     this.eventSelected.ParentEventId = info.event.extendedProps.parentEventId;
-    this.mytooltip.autoClose = true;
-    this.mytooltip.open();
   }
 
   handleDateSelect(selectInfo: DateSelectArg): void {
@@ -153,6 +143,14 @@ export class HomeComponent {
         this.getScheduleByUserId();
       }
     });
+  }
+
+  removeSchedule(): void {
+    this.scheduleService.deleteSchedule(this.schedule.ScheduleId).subscribe(() => {
+      this.schedule = new Schedule({});
+      this.scheduleService.scheduleId.next(null);
+      alert('The Schedule was deleted successfull');
+    })
   }
 
 }

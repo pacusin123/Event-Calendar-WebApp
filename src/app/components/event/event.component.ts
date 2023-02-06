@@ -34,6 +34,7 @@ export class EventComponent implements OnInit {
       description: ['', Validators.required],
       creationDate: ['', Validators.required],
       place: ['', Validators.required],
+      participants: ['', Validators.required],
       typeEvent: ['', Validators.required]
     })
     if (this.data && this.data[0]) {
@@ -41,6 +42,7 @@ export class EventComponent implements OnInit {
       this.eventForm.controls['description'].setValue(this.data[0].Description)
       this.eventForm.controls['creationDate'].setValue(new Date(this.data[0].CreationDate))
       this.eventForm.controls['place'].setValue(this.data[0].Place)
+      this.eventForm.controls['participants'].setValue(this.data[0].Participants)
       this.eventForm.controls['typeEvent'].setValue(this.data[0].TypeEventEnum)
     }
   }
@@ -65,6 +67,8 @@ export class EventComponent implements OnInit {
         this.eventForm.reset();
         this.dialogRef.close('save');
       })
+    } else {
+      alert("fill in the required fields *")
     }
   }
 

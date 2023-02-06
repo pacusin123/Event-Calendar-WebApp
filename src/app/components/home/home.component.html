@@ -5,11 +5,12 @@
         <mat-card-header>
           <mat-card-title>{{schedule?.Name}}</mat-card-title>
         </mat-card-header>
-        <mat-card-content *ngIf="schedule">
+        <mat-card-content *ngIf="schedule?.ScheduleId">
           <full-calendar #calendar [options]="calendarOptions">
             <ng-template #eventContent let-arg>
-              <div [ngbTooltip]="tipContent" tooltipClass="my-freaky-tooltip" #tt="ngbTooltip">
-                <mat-icon [ngStyle]="{'color': arg.event.extendedProps.colorEvent}">event_note </mat-icon>
+              <div [ngbTooltip]="tipContent" tooltipClass="my-freaky-tooltip">
+                <mat-icon [ngStyle]="{'color': arg.event.extendedProps.colorEvent}">
+                  {{arg.event.extendedProps.iconEvent}} </mat-icon>
                 <i style="margin-left: 5px;">{{ arg.event.start | date: 'shortTime' }}</i>
                 <br>
                 <i style="margin-left: 15px;"><b>{{ arg.event.title }}</b></i>
@@ -18,14 +19,15 @@
           </full-calendar>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-raised-button color="warn">Remove Calendar</button>
+          <button mat-raised-button color="primary" (click)="createSchedule()" [disabled]="schedule?.ScheduleId">Add Calendar</button>
+          <button mat-raised-button color="warn"  (click)="removeSchedule()" [disabled]="!schedule?.ScheduleId">Remove Calendar</button>
           <div mat-dialog-actions align="end">
-            <mat-icon style="color: red;">event_note</mat-icon>
-            <mat-label> Private </mat-label>
-            <mat-icon style="color: blue;">event_note</mat-icon>
-            <mat-label> Shared </mat-label>
-            <mat-icon style="color: green;">event_note</mat-icon>
-            <mat-label> Other User </mat-label>
+            <mat-icon style="color: #ff9900;">star</mat-icon>
+            <mat-label>Private</mat-label>
+            <mat-icon style="color: blue;">share</mat-icon>
+            <mat-label>Shared</mat-label>
+            <mat-icon style="color: green;">co_present</mat-icon>
+            <mat-label>Other User</mat-label>
           </div>
         </mat-card-actions>
       </mat-card>
@@ -33,7 +35,7 @@
   </div>
   <div class="column">
     <div class="card">
-      <mat-card class="events-card">
+      <mat-card *ngIf="schedule?.ScheduleId" class="events-card">
         <mat-card-header>
           <mat-card-title>Events Shared</mat-card-title>
         </mat-card-header>
@@ -56,7 +58,8 @@
       <mat-label><b>Description:</b> {{eventSelected.Description}}</mat-label><br>
       <mat-label><b>Place:</b> {{eventSelected.Place}}</mat-label><br>
       <mat-label><b>Type Event:</b> {{eventSelected.TypeEventName}}</mat-label><br>
-      <mat-label><b>Is Event Own:</b> {{eventSelected.ParentEventId}}</mat-label>
+      <mat-label *ngIf="!eventSelected.ParentEventId"><b>Is Event Own</b></mat-label>
+      <mat-label *ngIf="eventSelected.ParentEventId"><b>Is Event Other User</b></mat-label>
     </mat-card-content>
   </mat-card>
 </ng-template>

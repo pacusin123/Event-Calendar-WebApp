@@ -55,6 +55,8 @@ export class UserComponent implements OnInit {
       this.userService.saveUser(user).subscribe({});
       this.userForm.reset();
       this.dialogRef.close('save');
+    } else {
+      alert("fill in the required fields *")
     }
   }
 

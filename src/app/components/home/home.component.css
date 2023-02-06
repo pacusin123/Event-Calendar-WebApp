@@ -1,34 +1,39 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .column {
-  float: left;
-  width: 50%;
+    float: left;
+    width: 50%;
 }
 
-.row {margin: 0 -5px;}
+.row {
+    margin: 0 -5px;
+}
 
 .row:after {
-  content: "";
-  display: table;
-  clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .card {
-  padding: 16px;
+    padding: 16px;
 }
 
 @media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-    display: inline;
-  }
+    .column {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+        display: inline;
+    }
 }
 
 #tipContent {
-  width: 500px !important;
+    width: 500px !important;
 }
 
+div mat-label {
+    margin-right: 10px;
+}
