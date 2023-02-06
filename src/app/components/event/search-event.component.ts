@@ -1,5 +1,4 @@
-import { DatePipe } from '@angular/common';
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -29,7 +28,6 @@ export class SearchEventComponent implements OnInit {
   filterDateValue!: Date;
   filterTimeValue!: Date;
   constructor(
-    private datePipe: DatePipe,
     private scheduleEventService: ScheduleEventService,
     private scheduleService: ScheduleService,
     private matDialog: MatDialog
@@ -63,7 +61,7 @@ export class SearchEventComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  applyFilter(event: any): void {
+  applyFilter(event: KeyboardEvent): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -72,12 +70,12 @@ export class SearchEventComponent implements OnInit {
     }
   }
 
-  filterByDate(eventDate: any) {
+  filterByDate(eventDate: any): void {
     this.filterDateValue = eventDate.value;
     this.filterByDateTimeInternal();
   }
 
-  filterByDateAndTime(eventTime: any) {
+  filterByDateAndTime(eventTime: any): void {
     this.filterTimeValue = eventTime.value;
     this.filterByDateTimeInternal()
   }
@@ -95,7 +93,7 @@ export class SearchEventComponent implements OnInit {
     this.scheduleEventService.deleteScheduleEvent(id).subscribe(() => this.getAllScheduleEvents())
   }
 
-  addSharedScheduleEvent(row: ScheduleEvent) {
+  addSharedScheduleEvent(row: ScheduleEvent): void {
     row.ScheduleId = Number(this.scheduleId);
     row.ParentEventId = row.ScheduleEventId;
     row.ScheduleEventId = 0;
@@ -132,7 +130,7 @@ export class SearchEventComponent implements OnInit {
     }
   }
 
-  private openModalScheduleEvent(row?: ScheduleEvent) {
+  private openModalScheduleEvent(row?: ScheduleEvent): void {
     this.matDialog.open(EventComponent, {
       width: '30%',
       data: [row, this.scheduleId],

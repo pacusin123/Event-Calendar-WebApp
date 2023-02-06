@@ -4,23 +4,29 @@
       <mat-card class="calendar-card">
         <mat-card-header>
           <mat-card-title>{{schedule?.Name}}</mat-card-title>
-          <mat-card-subtitle>{{schedule?.User?.FirstName}} {{schedule?.User?.LastName}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content *ngIf="schedule">
-          <full-calendar id="calendarEl" [options]="calendarOptions" [events]="events">
+          <full-calendar #calendar [options]="calendarOptions">
             <ng-template #eventContent let-arg>
-              <div>
-                <b style="margin-left: 5px;">{{ arg.event.start | date: 'shortTime' }}</b>
+              <div [ngbTooltip]="tipContent" tooltipClass="my-freaky-tooltip" #tt="ngbTooltip">
+                <mat-icon [ngStyle]="{'color': arg.event.extendedProps.colorEvent}">event_note </mat-icon>
+                <i style="margin-left: 5px;">{{ arg.event.start | date: 'shortTime' }}</i>
                 <br>
-                <i style="margin-left: 15px;">Name: {{ arg.event.title }}</i>
-                <br>
-                <i style="margin-left: 15px; white-space: nowrap;">Description: {{ arg.event.description }}</i>
+                <i style="margin-left: 15px;"><b>{{ arg.event.title }}</b></i>
               </div>
             </ng-template>
           </full-calendar>
         </mat-card-content>
         <mat-card-actions>
           <button mat-raised-button color="warn">Remove Calendar</button>
+          <div mat-dialog-actions align="end">
+            <mat-icon style="color: red;">event_note</mat-icon>
+            <mat-label> Private </mat-label>
+            <mat-icon style="color: blue;">event_note</mat-icon>
+            <mat-label> Shared </mat-label>
+            <mat-icon style="color: green;">event_note</mat-icon>
+            <mat-label> Other User </mat-label>
+          </div>
         </mat-card-actions>
       </mat-card>
     </div>
@@ -39,3 +45,18 @@
     </div>
   </div>
 </div>
+<ng-template #tipContent>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Event Info</mat-card-title>
+      <mat-card-subtitle>{{eventSelected.CreationDate | date: 'dd/MM/yyyy, H:mm'}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-label><b>Name:</b> {{eventSelected.Name}}</mat-label><br>
+      <mat-label><b>Description:</b> {{eventSelected.Description}}</mat-label><br>
+      <mat-label><b>Place:</b> {{eventSelected.Place}}</mat-label><br>
+      <mat-label><b>Type Event:</b> {{eventSelected.TypeEventName}}</mat-label><br>
+      <mat-label><b>Is Event Own:</b> {{eventSelected.ParentEventId}}</mat-label>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

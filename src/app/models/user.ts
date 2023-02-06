@@ -1,3 +1,4 @@
+import { Role } from "./role";
 export class User {
   UserId!: number;
   FirstName!: string;
@@ -5,6 +6,8 @@ export class User {
   Email!: string;
   UserName!: string;
   Password!: string;
+  Role!: Role;
+  RoleId!: number;
 
   constructor(data: any) {
     Object.assign(this, data);

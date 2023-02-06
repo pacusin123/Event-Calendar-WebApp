@@ -9,11 +9,9 @@
   margin: 5px;
 }
 
-
 mat-form-field{
   width: 100%;
 }
-
 
 table {
   width: 100%;
@@ -28,18 +26,4 @@ table {
 .container{
   max-width: 1200px;
   margin: 0 auto;
-}
-
-.sub-container{
-  margin-top: 10px;
-}
-
-.datepicker, .dateTime {
-  width: 200px;
-  margin: 10px 20px 10px 0;
-}
-
-.contentTime{
-  display: flex;
-  text-align: center;
 }

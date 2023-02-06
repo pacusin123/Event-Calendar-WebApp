@@ -1,3 +1,10 @@
 .spacer{
   flex: 1 1 auto;
 }
+
+.label-subtitle {
+  color: rgba(0,0,0,.54);
+  font-size: 14px;
+  margin-top: 5px;
+  margin-left: 20px;
+}

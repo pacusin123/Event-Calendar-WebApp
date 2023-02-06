@@ -14,7 +14,7 @@ import { ScheduleComponent } from './schedule.component';
 })
 export class SearchScheduleComponent {
 
-  displayedColumns: string[] = ['ScheduleId', 'FirstName', 'LastName', 'Email', 'ScheduleName', 'Password', 'Actions'];
+  displayedColumns: string[] = ['ScheduleId', 'Name','Actions'];
   dataSource!: MatTableDataSource<Schedule>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

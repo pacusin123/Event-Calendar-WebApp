@@ -3,33 +3,32 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { User } from 'src/app/models/user';
-import { UserService } from 'src/app/services/user.service';
-import { UserComponent } from './user.component';
-
+import { Role } from 'src/app/models/role';
+import { RoleService } from 'src/app/services/role.service';
+import { RoleComponent } from './role.component';
 
 @Component({
-  selector: 'app-search-user',
-  templateUrl: './search-user.component.html',
-  styleUrls: ['./user.component.css']
+  selector: 'app-search-role',
+  templateUrl: './search-role.component.html',
+  styleUrls: ['./role.component.css']
 })
-export class SearchUserComponent {
+export class SearchRoleComponent {
 
-  displayedColumns: string[] = ['UserId', 'FirstName', 'LastName', 'Email', 'RoleName', 'UserName', 'Password', 'Actions'];
-  dataSource!: MatTableDataSource<User>;
+  displayedColumns: string[] = ['RoleId', 'Name', 'Actions'];
+  dataSource!: MatTableDataSource<Role>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private userService: UserService,
+    private roleService: RoleService,
     private matDialog: MatDialog
   ) {
-    this.getAllUsers();
+    this.getAllRoles();
   }
 
-  getAllUsers() {
-    this.userService.getUsers().subscribe(p => {
+  getAllRoles() {
+    this.roleService.getRoles().subscribe(p => {
       this.dataSource = new MatTableDataSource(p);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -45,28 +44,29 @@ export class SearchUserComponent {
     }
   }
 
-  createUser(): void {
-    this.openModalUser();
+  createRole(): void {
+    this.openModalRole();
   }
 
-  editUser(row: User): void {
-    this.openModalUser(row)
+  editRole(row: Role): void {
+    this.openModalRole(row)
   }
 
-  deleteUser(id: number) {
-    this.userService.deleteUser(id).subscribe(() => this.getAllUsers())
+  deleteRole(id: number) {
+    this.roleService.deleteRole(id).subscribe(() => this.getAllRoles())
   }
 
 
-  private openModalUser(row?: User) {
-    this.matDialog.open(UserComponent, {
+  private openModalRole(row?: Role) {
+    this.matDialog.open(RoleComponent, {
       width: '30%',
       data: row,
       autoFocus: false
     }).afterClosed().subscribe(val => {
       if (val === 'save') {
-        this.getAllUsers();
+        this.getAllRoles();
       }
     });
   }
+
 }
