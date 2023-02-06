@@ -28,6 +28,7 @@
     "@fullcalendar/daygrid": "^6.1.1",
     "@fullcalendar/interaction": "^6.1.1",
     "@ng-bootstrap/ng-bootstrap": "^12.1.2",
+    "@popperjs/core": "^2.11.6",
     "@syncfusion/ej2-angular-calendars": "^20.4.48",
     "ngx-cookie-service": "^15.0.0",
     "rxjs": "~7.4.0",

@@ -5,7 +5,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ScheduleEvent } from 'src/app/models/schedule-event';
 import { TypeEventEnum } from 'src/app/models/type-event-enum';
 import { ScheduleEventService } from 'src/app/services/schedule-event.service';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-event',
